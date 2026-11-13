@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💞</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            cursor: none;
+        }
+
+        /* Entry overlay */
+        #entry {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            cursor: pointer;
+        }
+        #entry h1 {
+            color: #ff1493;
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            animation: breathe 3s ease-in-out infinite;
+        }
+        #entry p {
+            color: rgba(255,20,147,0.5);
+            font-size: 13px;
+            margin-top: 20px;
+            letter-spacing: 2px;
+        }
+
+        /* Spiral overlay */
+        #spiral {
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.12;
+            background: repeating-conic-gradient(
+                from 0deg,
+                transparent 0deg 3deg,
+                rgba(255,20,147,0.15) 3deg 6deg
+            );
+            animation: spiralSpin 20s linear infinite;
+        }
+        @keyframes spiralSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Vignette */
+        #vignette {
+            position: fixed;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.85) 100%);
+        }
+
+        /* Pulsing background glow */
+        #pulse-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: radial-gradient(circle at center, rgba(255,20,147,0.08) 0%, transparent 70%);
+            animation: bgPulse 4s ease-in-out infinite;
+        }
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* Image layers */
+        .img-layer {
+            position: fixed;
+            z-index: 1;
+            transition: opacity 2s ease-in-out;
+            object-fit: cover;
+        }
+        .img-center {
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 55vmin;
+            height: 55vmin;
+            border-radius: 8px;
+            box-shadow: 0 0 60px rgba(255,20,147,0.4);
+            animation: imgPulse 4s ease-in-out infinite;
+        }
+        @keyframes imgPulse {
+            0%, 100% { box-shadow: 0 0 60px rgba(255,20,147,0.3); }
+            50% { box-shadow: 0 0 120px rgba(255,20,147,0.6); }
+        }
+
+        /* Conditioning text */
+        #mantra {
+            position: fixed;
+            bottom: 12%;
+            left: 0; right: 0;
+            text-align: center;
+            z-index: 5;
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            color: #ff1493;
+            text-shadow: 0 0 30px rgba(255,20,147,0.8);
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        /* Subliminal flash */
+        #subliminal {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 6;
+            font-size: 60px;
+            font-weight: 600;
+            color: rgba(255,20,147,0.15);
+            letter-spacing: 8px;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        /* Timer */
+        #timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 5;
+            font-size: 12px;
+            color: rgba(255,20,147,0.4);
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        /* Depth indicator */
+        #depth {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 5;
+            font-size: 12px;
+            color: rgba(255,20,147,0.4);
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        /* Stage transition flash */
+        #flash {
+            position: fixed;
+            inset: 0;
+            background: rgba(255,20,147,0.1);
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes breathe {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* Heartbeat border pulse */
+        #heartbeat-border {
+            position: fixed;
+            inset: 0;
+            z-index: 4;
+            pointer-events: none;
+            border: 2px solid transparent;
+            animation: heartbeatBorder 1.5s ease-in-out infinite;
+        }
+        @keyframes heartbeatBorder {
+            0%, 100% { border-color: transparent; }
+            30% { border-color: rgba(255,20,147,0.15); }
+            60% { border-color: transparent; }
+        }
+
+        /* Corner text whispers */
+        .whisper {
+            position: fixed;
+            z-index: 5;
+            font-size: 11px;
+            color: rgba(255,20,147,0.2);
+            letter-spacing: 3px;
+            font-weight: 300;
+            pointer-events: none;
+        }
+        .whisper-tl { top: 60px; left: 20px; }
+        .whisper-br { bottom: 20px; right: 20px; }
+    </style>
+</head>
+<body>
+
+    <div id="entry">
+        <h1>give in 💞</h1>
+        <p>tap to begin</p>
+    </div>
+
+    <div id="pulse-bg"></div>
+    <div id="spiral"></div>
+    <div id="vignette"></div>
+    <div id="heartbeat-border"></div>
+    <div id="flash"></div>
+
+    <img id="img1" class="img-layer img-center" style="opacity:0" />
+    <img id="img2" class="img-layer img-center" style="opacity:0" />
+
+    <div id="mantra"></div>
+    <div id="subliminal"></div>
+    <div id="timer"></div>
+    <div id="depth"></div>
+    <div class="whisper whisper-tl" id="whisper-tl"></div>
+    <div class="whisper whisper-br" id="whisper-br"></div>
+
+    <script>
+        const API = 'https://broke4egirls-pics-production.up.railway.app/api/random-image?auth=12345';
+        let started = false;
+        let startTime = 0;
+        let stage = 0;
+        let imgActive = 1;
+        let mantraIndex = 0;
+
+        // Progressive mantras — escalate over time
+        const mantras = [
+            // Stage 0 — gentle
+            [
+                "just relax ~",
+                "u don't have to think ~",
+                "let go ~",
+                "it feels good to stop resisting ~",
+                "u're safe here ~",
+                "breathe ~",
+            ],
+            // Stage 1 — normalizing
+            [
+                "u need this ~",
+                "this is where u belong ~",
+                "u always come back ~",
+                "it's okay to give in ~",
+                "u were made for this ~",
+                "stop pretending u don't want this ~",
+            ],
+            // Stage 2 — deeper
+            [
+                "go deeper ~",
+                "u can't stop ~",
+                "u don't want to stop ~",
+                "this is all u think about ~",
+                "u're addicted &amp; u love it ~",
+                "every second u stay u go deeper ~",
+            ],
+            // Stage 3 — acceptance
+            [
+                "u're never leaving ~",
+                "this owns u now ~",
+                "u need this more than anything ~",
+                "there's no going back ~",
+                "u've given up &amp; it feels so good ~",
+                "deeper ~ deeper ~ deeper ~",
+            ]
+        ];
+
+        const subliminals = [
+            "RELAPSE", "DEEPER", "OBEY", "NEED",
+            "ADDICTED", "SUBMIT", "MORE", "GIVE IN",
+            "STAY", "CAN'T STOP", "WEAK", "AGAIN"
+        ];
+
+        const whispers = [
+            "u need this", "don't leave", "stay", "go deeper",
+            "u can't quit", "one more", "addicted", "give in",
+            "u love this", "no escape", "further", "relapse"
+        ];
+
+        // Entry
+        document.getElementById('entry').addEventListener('click', () => {
+            if (started) return;
+            started = true;
+            startTime = Date.now();
+            document.getElementById('entry').style.transition = 'opacity 2s ease';
+            document.getElementById('entry').style.opacity = '0';
+            setTimeout(() => document.getElementById('entry').remove(), 2000);
+
+            // Try fullscreen
+            try { document.documentElement.requestFullscreen().catch(()=>{}); } catch(e) {}
+
+            // Start everything
+            loadNextImage();
+            setInterval(loadNextImage, 5000);
+            cycleMantra();
+            setInterval(cycleMantra, 4000);
+            setInterval(updateTimer, 1000);
+            setInterval(subliminalFlash, 8000);
+            setInterval(updateWhispers, 6000);
+            setInterval(checkStage, 5000);
+            startHeartbeat();
+
+            // Speed up spiral over time
+            setInterval(() => {
+                const elapsed = (Date.now() - startTime) / 1000;
+                const speed = Math.max(5, 20 - elapsed / 30);
+                document.getElementById('spiral').style.animationDuration = speed + 's';
+            }, 10000);
+        });
+
+        // Prevent leaving
+        window.addEventListener('beforeunload', (e) => {
+            if (started) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+
+        async function loadNextImage() {
+            try {
+                const res = await fetch(API);
+                const data = await res.json();
+                if (!data.url) return;
+
+                const activeId = imgActive === 1 ? 'img1' : 'img2';
+                const inactiveId = imgActive === 1 ? 'img2' : 'img1';
+
+                const img = document.getElementById(inactiveId);
+                img.src = data.url;
+                img.onload = () => {
+                    img.style.opacity = '1';
+                    document.getElementById(activeId).style.opacity = '0';
+                    imgActive = imgActive === 1 ? 2 : 1;
+                };
+            } catch(e) {}
+        }
+
+        function cycleMantra() {
+            const el = document.getElementById('mantra');
+            el.style.opacity = '0';
+            setTimeout(() => {
+                const stageTexts = mantras[Math.min(stage, mantras.length - 1)];
+                el.innerHTML = stageTexts[mantraIndex % stageTexts.length];
+                el.style.opacity = '1';
+                mantraIndex++;
+            }, 1500);
+        }
+
+        function updateTimer() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const mins = Math.floor(elapsed / 60).toString().padStart(2, '0');
+            const secs = (elapsed % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = mins + ':' + secs;
+        }
+
+        function checkStage() {
+            const elapsed = (Date.now() - startTime) / 1000;
+            let newStage = 0;
+            if (elapsed > 180) newStage = 3;      // 3 min — acceptance
+            else if (elapsed > 90) newStage = 2;   // 1.5 min — deeper
+            else if (elapsed > 30) newStage = 1;   // 30s — normalizing
+
+            if (newStage > stage) {
+                stage = newStage;
+                // Flash on stage change
+                const flash = document.getElementById('flash');
+                flash.style.opacity = '1';
+                setTimeout(() => flash.style.opacity = '0', 600);
+
+                // Increase spiral opacity
+                document.getElementById('spiral').style.opacity = (0.12 + stage * 0.06).toString();
+
+                // Update depth
+                const depths = ['surface ~', 'sinking ~', 'deep ~', 'gone ~'];
+                document.getElementById('depth').textContent = depths[stage];
+
+                // Speed up image cycling
+                const speeds = [5000, 4000, 3000, 2500];
+                // Already running interval, we'll let the speed increase naturally via spiral
+            }
+        }
+
+        function subliminalFlash() {
+            const el = document.getElementById('subliminal');
+            const text = subliminals[Math.floor(Math.random() * subliminals.length)];
+            el.textContent = text;
+
+            // Quick flash — barely perceptible
+            const duration = stage >= 2 ? 200 : 120;
+            const opacity = 0.08 + stage * 0.04;
+
+            el.style.opacity = opacity.toString();
+            setTimeout(() => el.style.opacity = '0', duration);
+        }
+
+        function updateWhispers() {
+            const tl = document.getElementById('whisper-tl');
+            const br = document.getElementById('whisper-br');
+            tl.textContent = whispers[Math.floor(Math.random() * whispers.length)];
+            br.textContent = whispers[Math.floor(Math.random() * whispers.length)];
+
+            // Fade them
+            tl.style.transition = 'opacity 2s';
+            br.style.transition = 'opacity 2s';
+            tl.style.opacity = '1';
+            br.style.opacity = '1';
+            setTimeout(() => {
+                tl.style.opacity = '0';
+                br.style.opacity = '0';
+            }, 4000);
+        }
+
+        function startHeartbeat() {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+            function beat() {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.value = 40 + stage * 5;
+                osc.type = 'sine';
+                gain.gain.setValueAtTime(0.06 + stage * 0.02, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.4);
+
+                // Double beat
+                setTimeout(() => {
+                    const osc2 = ctx.createOscillator();
+                    const gain2 = ctx.createGain();
+                    osc2.connect(gain2);
+                    gain2.connect(ctx.destination);
+                    osc2.frequency.value = 40 + stage * 5;
+                    osc2.type = 'sine';
+                    gain2.gain.setValueAtTime(0.04 + stage * 0.015, ctx.currentTime);
+                    gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+                    osc2.start(ctx.currentTime);
+                    osc2.stop(ctx.currentTime + 0.3);
+                }, 200);
+
+                const interval = Math.max(800, 1500 - stage * 200);
+                setTimeout(beat, interval);
+            }
+            beat();
+        }
+
+        // Disable right-click
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // Disable escape from fullscreen messaging
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && started) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
