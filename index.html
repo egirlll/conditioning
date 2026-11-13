@@ -48,24 +48,24 @@
         /* Hypnotic rings — expanding tunnel effect */
         #spiral {
             position: fixed;
-            inset: -50%;
-            width: 200%;
-            height: 200%;
+            inset: -80%;
+            width: 260%;
+            height: 260%;
             z-index: 2;
             pointer-events: none;
-            opacity: 0.15;
+            opacity: 0.45;
             background: repeating-radial-gradient(
                 circle at center,
                 transparent 0px,
-                transparent 40px,
-                rgba(255,20,147,0.12) 42px,
-                transparent 44px
+                transparent 50px,
+                rgba(255,20,147,0.25) 52px,
+                transparent 56px
             );
             animation: tunnelExpand 8s linear infinite;
         }
         @keyframes tunnelExpand {
             0% { transform: scale(1); }
-            100% { transform: scale(1.5); }
+            100% { transform: scale(1.8); }
         }
 
         /* Vignette */
