@@ -231,7 +231,7 @@
     <div class="whisper whisper-br" id="whisper-br"></div>
 
     <script>
-        const API = 'https://bopz-pics-production.up.railway.app/api/random-image';
+        const API = '/api/image';
         let started = false;
         let startTime = 0;
         let stage = 0;
@@ -331,7 +331,7 @@
 
         async function loadNextImage() {
             try {
-                const res = await fetch(API, { headers: { 'Authorization': 'Bearer 12345' } });
+                const res = await fetch(API);
                 const data = await res.json();
                 if (!data.url) return;
 
