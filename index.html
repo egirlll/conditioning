@@ -45,22 +45,27 @@
             letter-spacing: 2px;
         }
 
-        /* Spiral overlay */
+        /* Hypnotic rings — expanding tunnel effect */
         #spiral {
             position: fixed;
-            inset: 0;
+            inset: -50%;
+            width: 200%;
+            height: 200%;
             z-index: 2;
             pointer-events: none;
-            opacity: 0.12;
-            background: repeating-conic-gradient(
-                from 0deg,
-                transparent 0deg 3deg,
-                rgba(255,20,147,0.15) 3deg 6deg
+            opacity: 0.15;
+            background: repeating-radial-gradient(
+                circle at center,
+                transparent 0px,
+                transparent 40px,
+                rgba(255,20,147,0.12) 42px,
+                transparent 44px
             );
-            animation: spiralSpin 20s linear infinite;
+            animation: tunnelExpand 8s linear infinite;
         }
-        @keyframes spiralSpin {
-            to { transform: rotate(360deg); }
+        @keyframes tunnelExpand {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.5); }
         }
 
         /* Vignette */
@@ -314,11 +319,14 @@
             startHeartbeat();
             startAmbient();
 
-            // Speed up spiral over time
+            // Intensify tunnel over time
             setInterval(() => {
                 const elapsed = (Date.now() - startTime) / 1000;
-                const speed = Math.max(5, 20 - elapsed / 30);
-                document.getElementById('spiral').style.animationDuration = speed + 's';
+                const speed = Math.max(3, 8 - elapsed / 40);
+                const opacity = Math.min(0.15 + elapsed / 600, 0.35);
+                const spiral = document.getElementById('spiral');
+                spiral.style.animationDuration = speed + 's';
+                spiral.style.opacity = opacity.toString();
             }, 10000);
         });
 
