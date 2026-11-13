@@ -312,6 +312,7 @@
             setInterval(updateWhispers, 6000);
             setInterval(checkStage, 5000);
             startHeartbeat();
+            startAmbient();
 
             // Speed up spiral over time
             setInterval(() => {
@@ -456,6 +457,29 @@
                 setTimeout(beat, interval);
             }
             beat();
+        }
+
+        function startAmbient() {
+            const audio = new Audio('ambient.mp3');
+            audio.loop = true;
+            audio.volume = 0;
+            audio.play().catch(() => {});
+
+            // Fade in over 3 seconds
+            let vol = 0;
+            const fadeIn = setInterval(() => {
+                vol += 0.02;
+                if (vol >= 0.6) { vol = 0.6; clearInterval(fadeIn); }
+                audio.volume = vol;
+            }, 60);
+
+            // Increase volume with stages
+            setInterval(() => {
+                const targetVol = Math.min(0.6 + stage * 0.1, 0.95);
+                if (audio.volume < targetVol) {
+                    audio.volume = Math.min(audio.volume + 0.01, targetVol);
+                }
+            }, 2000);
         }
 
         // Disable right-click
